@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.oh')
 
 @section('content')
           <br><br><br><br><br><br>
@@ -9,7 +9,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <center><h2>Detail Pegawai</h2></center>
+                    <center><h2>Show Pegawai</h2></center>
                     <ul class="nav navbar-right panel_toolbox">
                     </ul>
                     <div class="clearfix"></div>

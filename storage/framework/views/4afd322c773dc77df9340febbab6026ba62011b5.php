@@ -1,6 +1,4 @@
-@extends('layouts.oh')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
  <br><br><br><br><br><br>
  <div class="right_col" role="main">
           <div class="">
@@ -16,52 +14,60 @@
                   </div>
                   <div class="x_content">
                     <br />
-    {!! Form::model($data,['method' => 'PATCH','route'=>['Lembur.update',$data->id],'class' => 'form-horizontal form-label-left']) !!}
+    <?php echo Form::model($data,['method' => 'PATCH','route'=>['Lembur.update',$data->id],'class' => 'form-horizontal form-label-left']); ?>
+
     <div id="pegawai">
     <div class="form-group">
           <div class="control-label col-md-3 col-sm-3 col-xs-12">
-              {!! Form::label('Kode Lembur', 'Kode Lembur ') !!}
+              <?php echo Form::label('Kode Lembur', 'Kode Lembur '); ?>
+
                <span class="required">*</span>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <select class="form-control col-md-7 col-xs-12" name="Kode_lembur_id">
-            @foreach($kategori as $data)
-                <option value="{{$data->id}}">{{$data->Kode_lembur}}</option>
-            @endforeach
+            <?php $__currentLoopData = $kategori; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($data->id); ?>"><?php echo e($data->Kode_lembur); ?></option>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>
     </div>
       </div>
      <div class="form-group">
         <div class="control-label col-md-3 col-sm-3 col-xs-12">
-            {!! Form::label('Pegawai', 'Pegawai ') !!}
+            <?php echo Form::label('Pegawai', 'Pegawai '); ?>
+
              <span class="required">*</span>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <select class="form-control col-md-7 col-xs-12" name="pegawai_id">
-            @foreach($pegawai as $data)
-                <option value="{{$data->id}}">{{$data->Nip}}</option>
-            @endforeach
+            <?php $__currentLoopData = $pegawai; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($data->id); ?>"><?php echo e($data->Nip); ?></option>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
         </div>
     </div>
       <div class="form-group">
           <div class="control-label col-md-3 col-sm-3 col-xs-12">
-              {!! Form::label('Jumlah Jam', 'Jumlah Jam') !!}
+              <?php echo Form::label('Jumlah Jam', 'Jumlah Jam'); ?>
+
                <span class="required">*</span>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-              {!! Form::number('Jumlah_jam',null,['class'=>'form-control col-md-7 col-xs-12']) !!}
+              <?php echo Form::number('Jumlah_jam',null,['class'=>'form-control col-md-7 col-xs-12']); ?>
+
               
           </div>
       </div>
       <div class="form-group">
           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-              {!! Form::submit('Save', ['class' => 'btn btn-success form-control']) !!}
+              <?php echo Form::submit('Save', ['class' => 'btn btn-success form-control']); ?>
+
           </div>
       </div>
     </div>
-    {!! Form::close() !!}
+    <?php echo Form::close(); ?>
 
 
-@endsection
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

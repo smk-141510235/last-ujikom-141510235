@@ -5,7 +5,7 @@
     <header>
         <div class="container">
             <div class="row">
-             <center><h2>Data Jabatan</h2></center>
+            
                 <div class="section">
 <center><form action="{{url('Jabatan')}}/?Nama_jabatan=Nama_jabatan">
      <input type="text" name="Nama_jabatan" placeholder="search"></form>
@@ -17,7 +17,7 @@
 <br>
 	 <div class="right_col" role="main">
           <div class="">
-          
+           <center><h2>Data Jabatan</h2></center>
             <div class="clearfix"></div>
  &nbsp;&nbsp;&nbsp;<a href="{{url('Jabatan/create')}}" class="btn btn-primary">Input Data Jabatan&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
             <div class="row">

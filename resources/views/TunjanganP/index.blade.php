@@ -5,13 +5,13 @@
     <header>
         <div class="container">
             <div class="row">
-              <center><h2>Data Tunjangan Pegawai</h2></center>
+             
         </div>
     </header>
 <br>
 	 <div class="right_col" role="main">
           <div class="">
-
+ <center><h2>Data Tunjangan Pegawai</h2></center>
             <div class="clearfix"></div>
  &nbsp;&nbsp;&nbsp;<a href="{{url('TunjanganP/create')}}" class="btn btn-primary">Input Tunjangan Pegawai&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
             <div class="row">
@@ -48,7 +48,26 @@
                                  <th><center>{{ $data->Tunjangans->Kode_tunjangan }}</center></th>
                                  <th><center>{{ $data->Pegawai->Nip }}</center></th>
                                  <th><center>{{ $data->Pegawai->User->name }}</center></th>
-                                 <th><center><?php echo 'Rp.'. number_format($data->Tunjangans->Besaran_uang*$data->Tunjangans->Jumlah_anak, 2,",","."); ?></center></th>
+                                 <th><center>
+                                   <?php
+                                       if ( $data->Tunjangans->Jumlah_anak <= '1' )
+                                       {       
+                                           echo "". $data->Tunjangans->Besaran_uang;
+                                       }      
+
+                                       elseif ( $data->Tunjangans->Jumlah_anak == '1' | $data->Tunjangans->Jumlah_anak == '2')
+                                       {       
+                                           
+                                           echo "". $data->Tunjangans->Besaran_uang * $data->Tunjangans->Jumlah_anak;
+                                       }
+
+                                       elseif ( $data->Tunjangans->Jumlah_anak >= '2')
+                                       {
+                                           echo "". $data->Tunjangans->besaran_uang * '2';
+                                       } 
+                                       
+                                       ?>
+                                 </center></th>
                                  <td><center><a href="{{ url('TunjanganP', $data->id) }}" class="btn btn-primary">Lihat</a></center></td>
             <td><center><a href="{{ route('TunjanganP.edit', $data->id) }}" class="btn btn-warning">Ubah</a></center></td>
                                  <th>

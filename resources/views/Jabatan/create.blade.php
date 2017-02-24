@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.oh')
 
 @section('content')
 <br><br><br><br><br><br><br>

@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.oh')
 
 @section('content')
 <!-- Header -->
    <header>
         <div class="container">
             <div class="row">
-             <center><h2>Data Kategori Pegawai</h2></center>
+            
                 <div class="section">
 <center><form action="{{url('Kategori')}}/?Kode_lembur=Kode_lembur">
      <input type="text" name="Kode_lembur" placeholder="search"></form>
@@ -17,7 +17,7 @@
 <br>
    <div class="right_col" role="main">
           <div class="">
-          
+           <center><h2>Data Kategori Pegawai</h2></center>
             <div class="clearfix"></div>
  &nbsp;&nbsp;&nbsp;<a href="{{url('Kategori/create')}}" class="btn btn-primary">Input Data Kategori&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
             <div class="row">

@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.oh')
 
 @section('content')
 <!-- Header -->
     <header>
         <div class="container">
             <div class="row">
-             <center><h2>Data Lembur Pegawai</h2></center>
+            
                 
             </div>
         </div>
@@ -13,7 +13,7 @@
 <br>
    <div class="right_col" role="main">
           <div class="">
-           
+            <center><h2>Data Lembur Pegawai</h2></center>
             <div class="clearfix"></div>
  &nbsp;&nbsp;&nbsp;<a href="{{url('Lembur/create')}}" class="btn btn-primary">Input Data Lembur&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
             <div class="row">

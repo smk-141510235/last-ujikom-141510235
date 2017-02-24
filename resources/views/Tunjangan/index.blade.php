@@ -1,11 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.oh')
 
 @section('content')
 <!-- Header -->
     <header>
         <div class="container">
             <div class="row">
-           <center><h2>Data Tunjangan</h2></center>
             </div>
             <div class="section">
             <center><form action="{{url('Tunjangan')}}/?Kode_tunjangan=Kode_tunjangan">
@@ -18,6 +17,7 @@
 	 <div class="right_col" role="main">
           <div class="">
 
+           <center><h2>Data Tunjangan</h2></center>
             <div class="clearfix"></div>
  &nbsp;&nbsp;&nbsp;<a href="{{url('Tunjangan/create')}}" class="btn btn-primary">Input Data Tunjangan&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
             <div class="row">

@@ -1,6 +1,4 @@
-@extends('layouts.oh')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
  <br><br><br><br><br><br>
  <div class="right_col" role="main">
           <div class="">
@@ -16,45 +14,55 @@
                   </div>
                   <div class="x_content">
                     <br />
-    {!! Form::model($data,['method' => 'PATCH','route'=>['Golongan.update',$data->id],'class' => 'form-horizontal form-label-left']) !!}
+    <?php echo Form::model($data,['method' => 'PATCH','route'=>['Golongan.update',$data->id],'class' => 'form-horizontal form-label-left']); ?>
+
     <div id="pegawai">
       <div class="form-group">
           <div class="control-label col-md-3 col-sm-3 col-xs-12">
-              {!! Form::label('Kode Golongan', 'Kode Golongan ') !!}
+              <?php echo Form::label('Kode Golongan', 'Kode Golongan '); ?>
+
                <span class="required">*</span>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-              {!! Form::text('Kode_golongan',null,['class'=>'form-control col-md-7 col-xs-12']) !!}
+              <?php echo Form::text('Kode_golongan',null,['class'=>'form-control col-md-7 col-xs-12']); ?>
+
               
           </div>
       </div>
       <div class="form-group">
           <div class="control-label col-md-3 col-sm-3 col-xs-12">
-              {!! Form::label('Nama Golongan', 'Nama Golongan ') !!}
+              <?php echo Form::label('Nama Golongan', 'Nama Golongan '); ?>
+
                <span class="required">*</span>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-              {!! Form::text('Nama_golongan',null,['class'=>'form-control col-md-7 col-xs-12']) !!}
+              <?php echo Form::text('Nama_golongan',null,['class'=>'form-control col-md-7 col-xs-12']); ?>
+
               
           </div>
       </div>
             <div class="form-group">
           <div class="control-label col-md-3 col-sm-3 col-xs-12">
-              {!! Form::label('Besaran Uang', 'Besaran Uang ') !!}
+              <?php echo Form::label('Besaran Uang', 'Besaran Uang '); ?>
+
                <span class="required">*</span>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-              {!! Form::number('Besaran_uang',null,['class'=>'form-control col-md-7 col-xs-12']) !!}
+              <?php echo Form::number('Besaran_uang',null,['class'=>'form-control col-md-7 col-xs-12']); ?>
+
               
           </div>
       </div>
       <div class="form-group">
           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-              {!! Form::submit('Save', ['class' => 'btn btn-success form-control']) !!}
+              <?php echo Form::submit('Save', ['class' => 'btn btn-success form-control']); ?>
+
           </div>
       </div>
     </div>
-    {!! Form::close() !!}
+    <?php echo Form::close(); ?>
 
 
-@endsection
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.oh', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

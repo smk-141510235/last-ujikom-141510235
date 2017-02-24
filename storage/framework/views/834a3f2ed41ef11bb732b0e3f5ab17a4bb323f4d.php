@@ -46,7 +46,26 @@
                                  <th><center><?php echo e($data->Tunjangans->Kode_tunjangan); ?></center></th>
                                  <th><center><?php echo e($data->Pegawai->Nip); ?></center></th>
                                  <th><center><?php echo e($data->Pegawai->User->name); ?></center></th>
-                                 <th><center><?php echo 'Rp.'. number_format($data->Tunjangans->Besaran_uang*$data->Tunjangans->Jumlah_anak, 2,",","."); ?></center></th>
+                                 <th><center>
+                                   <?php
+                                       if ( $data->Tunjangans->Jumlah_anak <= '1' )
+                                       {       
+                                           echo "". $data->Tunjangans->Besaran_uang;
+                                       }      
+
+                                       elseif ( $data->Tunjangans->Jumlah_anak == '1' | $data->Tunjangans->Jumlah_anak == '2')
+                                       {       
+                                           
+                                           echo "". $data->Tunjangans->Besaran_uang * $data->Tunjangans->Jumlah_anak;
+                                       }
+
+                                       elseif ( $data->Tunjangans->Jumlah_anak >= '2')
+                                       {
+                                           echo "". $data->Tunjangans->besaran_uang * '2';
+                                       } 
+                                       
+                                       ?>
+                                 </center></th>
                                  <td><center><a href="<?php echo e(url('TunjanganP', $data->id)); ?>" class="btn btn-primary">Lihat</a></center></td>
             <td><center><a href="<?php echo e(route('TunjanganP.edit', $data->id)); ?>" class="btn btn-warning">Ubah</a></center></td>
                                  <th>

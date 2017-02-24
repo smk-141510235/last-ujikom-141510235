@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>Job yes</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{url('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -43,7 +43,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,16 @@
         
         <!-- /.container-fluid -->
     </nav>
-
+  <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Selamat datang di Aplikasi Penggajian</h1>
+                <hr>
+                <p>Dengan Bekerja kita akan mendapatkan hidupyang lebih baik, tunjangan disediakan dan terdapat berbagai lembur </p>
+               
+            </div>
+        </div>
+    </header>
 
  @yield('content')
     <section class="bg-primary" id="about">

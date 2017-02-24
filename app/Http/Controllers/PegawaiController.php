@@ -14,7 +14,7 @@ use App\Pegawai;
 use App\Golongan;
 use App\Jabatan;
 use File;
-
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -117,10 +117,13 @@ class PegawaiController extends Controller
     public function edit( $id)
     {
         
-        $data = Pegawai::find($id);
-        $golongan = Golongan::all();
-        $jabatan = Jabatan::all();
-        return view('Pegawai.edit',compact('data','golongan','jabatan'));
+        $pegawai = Pegawai::find($id);
+        $uh = Jabatan::whereIn('id',[$pegawai->jabatan_id])->first();
+        $jabatan = Jabatan::whereIn('id',[$pegawai->jabatan_id])->get();
+        $unch = Golongan::whereIn('id',[$pegawai->golongan_id])->first();
+        $golongan = Golongan::whereIn('id',[$pegawai->golongan_id])->get();
+
+        return view('Pegawai.edit',compact('pegawai','golongan','jabatan','uh','unch'));
     }
 
     /**
@@ -135,7 +138,7 @@ class PegawaiController extends Controller
 
         
         
-        $pegawai = Pegawai::find($id);
+         $pegawai = Pegawai::find($id);
         $pegawai->Nip = $request->get('Nip');
         $pegawai->jabatan_id = $request->get('jabatan_id');
         $pegawai->golongan_id = $request->get('golongan_id');
@@ -161,9 +164,16 @@ class PegawaiController extends Controller
                     }        
                 }
         $pegawai->Photo = $filename;
-        $pegawai->save(); 
-    }
         
+    }
+        $pegawai->update();
+        
+        if($pegawai->update()){
+            Session::flash('pesan_sukses','Berhasil Mengedit Data Pegawai');
+        }
+        else{
+            Session::flash('pesan_gagal','Gagal Mengedit Data Pegawai');
+        } 
         
         return redirect('Pegawai');
     }

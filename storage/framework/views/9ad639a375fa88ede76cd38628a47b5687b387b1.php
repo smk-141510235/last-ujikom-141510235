@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
              
-                <center><h2>Data Golongan</h2></center>
+               
             </div>
         </div>
     </header>
@@ -17,7 +17,7 @@
 </center>
    <div class="right_col" role="main">
           <div class="">
-          
+           <center><h2>Data Golongan</h2></center>
             <div class="clearfix"></div>
  &nbsp;&nbsp;&nbsp;<a href="<?php echo e(url('Golongan/create')); ?>" class="btn btn-primary">Input Data Golongan&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
             <div class="row">
@@ -79,4 +79,4 @@
 
 
      
-<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.oh', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -18,7 +18,5 @@ class Tunjangan_pegawai extends Model
     public function Pegawai(){
     	return $this->belongsTo('App\Pegawai', 'pegawai_id');
     }
-     public function Penggajian(){
-        return $this->hasMany('App\Penggajian', 'tunjangan_pegawai_id');
-    }
+  
 }

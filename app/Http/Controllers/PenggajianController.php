@@ -10,18 +10,17 @@ use Html;
 use Input;
 use Redirect;
 use View;
-use App\Penggajian; 
-use App\Tunjangan_pegawai; 
-use App\Tunjangan; 
-use App\Pegawai; 
-use App\Jabatan; 
-use App\Golongan; 
-use App\Kategori_lembur; 
-use App\Lembur_pegawai; 
-use DB; 
-use DateTime; 
+use App\Penggajian;
+use App\Tunjangan_pegawai;
+use App\Tunjangans;
+use App\Pegawai;
+use App\kategori_lembur;
+use App\Lembur_pegawai;
+use App\Jabatan;
+use App\Golongan;
 use Auth;
-
+use App\user;
+use App\Illuminate\Foundation\Auth\AuthenticatesUser;
 
 class PenggajianController extends Controller
 {
@@ -37,10 +36,8 @@ class PenggajianController extends Controller
 
     public function index()
     {
-            $penggajian = Penggajian::all(); 
-            $tunjangan_pegawai = Tunjangan_pegawai::all(); 
-            $pegawai = Pegawai::all(); 
-            return view('Penggajian.index', compact('penggajian', 'tunjangan_pegawai',  'pegawai')); 
+            $gajian = Penggajian::paginate(3);
+        return view('Penggajian.index',compact('gajian'));
     }
 
     /**
@@ -50,10 +47,9 @@ class PenggajianController extends Controller
      */
     public function create()
     {
-         $pegawai = Pegawai::all(); 
-         $tunjangan_pegawai = Tunjangan_pegawai::all(); 
-         return view('Penggajian.create', compact('tunjangan_pegawai', 'pegawai')); 
-    }
+          $gaji = Tunjangan_pegawai::paginate(10);
+        return view('Penggajian.create',compact('gaji')); 
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -62,76 +58,71 @@ class PenggajianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-         $gaji = $request->all(); 
- 
-         $tunjangan_pegawai = DB::table('tunjangan_pegawais') 
-                             ->select('Kode_tunjangan_id', 'pegawai_id')                     
-                             ->where('id', $gaji['tunjangan_pegawai_id']) 
-                             ->first(); 
-        
-         $pegawai = DB::table('pegawais') 
-                 ->select('Nip', 'jabatan_id', 'golongan_id') 
-                 ->where('id', $tunjangan_pegawai->Kode_tunjangan_id) 
-                 ->first(); 
-       
-  
-         $lemburpegawai = DB::table('lembur_pegawais') 
-                     ->select('Kode_lembur_id', 'pegawai_id', 'Jumlah_jam') 
-                     ->where('id', $gaji['tunjangan_pegawai_id']) 
-                     ->first(); 
-      
- 
-         $kategori_lembur = DB::table('kategori_lemburs') 
-                             ->select('Kode_lembur', 'jabatan_id', 'golongan_id', 'Besaran_uang') 
-                             ->where('jabatan_id', $pegawai->jabatan_id) 
-                             ->where('golongan_id', $pegawai->golongan_id) 
-                             ->first(); 
-  
-  
-         $jabatan = DB::table('jabatans') 
-                     ->select('Besaran_uang') 
-                     ->where('id', $pegawai->jabatan_id) 
-                     ->first(); 
- 
-  
-         $golongan = DB::table('golongans') 
-                     ->select('Besaran_uang') 
-                     ->where('id', $pegawai->golongan_id) 
-                     ->first(); 
-       
-  
-         $tunjangan = DB::table('tunjangans') 
-                     ->select('Besaran_uang') 
-                     ->where('id', $tunjangan_pegawai->Kode_tunjangan_id) 
-                     ->first(); 
-       
-  
-  
-         $jamlembur = $lemburpegawai->Jumlah_jam; 
-         $jumlahuang = $jamlembur * $kategori_lembur->Besaran_uang; 
-         $gajipokok = $jabatan->Besaran_uang + $golongan->Besaran_uang + $tunjangan->Besaran_uang; 
-         $gajitotal = $gajipokok + $jumlahuang;  
-         $tgl_ambil =  new DateTime('now'); 
-         $Status = updated_at; 
-         $petugas = Auth::user()->permission; 
-    
-                              
-         $tunjanganpegawai = Penggajian::create([ 
-             'tunjangan_pegawai_id' => $request['tunjangan_pegawai_id'],  
-             'Jumlah_jam_lembur' => $jamlembur, 
-            'Jumlah_uang_lembur' => $jumlahuang, 
-             'Gaji_pokok' => $gajipokok, 
-             'Total_gaji' => $gajitotal, 
-             'Tanggal_pengambilan' => $tgl_ambil, 
-             'Status_pengambilan' => $Status , 
-             'Petugas_penerima' => $petugas 
-  
-         ]); 
-         dd($tunjanganpegawai); 
-  
-         return redirect('Penggajians'); 
-     } 
+    {$i_gaji=Input::all();
+        // dd($penggajian);
+       $tunjangan_pegawai=Tunjangan_pegawai::where('id',$i_gaji['tunjangan_pegawai_id'])->first();
+       // dd($where);
+       $WPenggajian=Penggajian::where('tunjangan_pegawai_id',$tunjangan_pegawai->id)->first();
+       // dd($wherepenggajian);
+       $tunjangan=Tunjangans::where('id',$tunjangan_pegawai->Kode_tunjangan_id)->first();
+       // dd($where);
+       $pegawai=Pegawai::where('id',$tunjangan_pegawai->pegawai_id)->first();
+       // dd($wherepegawai);
+       $kategori_lembur=kategori_lembur::where('jabatan_id',$pegawai->jabatan_id)->where('golongan_id',$pegawai->golongan_id)->first();
+       // dd($wherekategorilembur);
+       $lembur_pegawai=Lembur_pegawai::where('pegawai_id',$pegawai->id)->first();
+       // dd($wherelemburpegawai);
+       $jabatan=Jabatan::where('id',$pegawai->jabatan_id)->first();
+       // dd($wherejabatan);
+       $golongan=Golongan::where('id',$pegawai->golongan_id)->first();
+       // dd($wheregolongan);
+
+       $gaji = new Penggajian ;
+
+       if (isset($WPenggajian)) {
+           $error=true ;
+           $tunjangan=Tunjangan_pegawai::paginate(10);
+           return view('FPenggajian.create',compact('tunjangan','error'));
+       }
+       elseif (!isset($lembur_pegawai)) {
+            $nol = 0;
+            $gaji->Jumlah_jam_lembur= $nol;
+            $gaji->Jumlah_uang_lembur = $nol;
+            $gaji->Gaji_pokok=$jabatan->besaran_uang+$golongan->besaran_uang;
+            $gaji->Total_gaji=($tunjangan->Jumlah_anak*$tunjangan->Besaran_uang)+($jabatan->Besaran_uang+$golongan->Besaran_uang);
+            $gaji->Tanggal_pengambilan = date('d-m-y');
+            $gaji->Status_pengambilan = Input::get('Status_pengambilan');
+            $gaji->tunjangan_pegawai_id = Input::get('tunjangan_pegawai_id');
+            $gaji->Petugas_penerima = Auth::user()->name;
+            $gaji->save();
+        }
+        elseif(!isset($lembur_pegawai) || !isset($kategori_lembur))
+        {
+            $nol = 0;
+            $gaji->Jumlah_jam_lembur= $nol;
+            $gaji->Jumlah_uang_lembur = $nol;
+            $gaji->Gaji_pokok=$jabatan->Besaran_uang+$golongan->Besaran_uang;
+            $gaji->Total_gaji = ($tunjangan->Jumlah_anak*$tunjangan->Besaran_uang)+($jabatan->Besaran_uang+$golongan->Besaran_uang);
+            $gaji->Tanggal_pengambilan = date('d-m-y');
+            $gaji->Status_pengambilan = Input::get('Status_pengambilan');
+            $gaji->tunjangan_pegawai_id = Input::get('tunjangan_pegawai_id');
+            $gaji->Petugas_penerima = Auth::user()->name;
+            $gaji->save();
+        }
+        else
+        {
+            $gaji->Jumlah_jam_lembur=$lembur_pegawai->Jumlah_jam;
+            $gaji->Jumlah_uang_lembur =($lembur_pegawai->Jumlah_jam)*($kategori_lembur->Besaran_uang);
+            $gaji->Gaji_pokok=$jabatan->Besaran_uang+$golongan->Besaran_uang;
+            $gaji->Total_gaji = ($lembur_pegawai->Jumlah_jam*$kategori_lembur->Besaran_uang)+($tunjangan->Jumlah_anak*$tunjangan->Besaran_uang)+($jabatan->Besaran_uang+$golongan->Besaran_uang);
+            $gaji->Tanggal_pengambilan = date('d-m-y');
+            $gaji->Status_pengambilan = Input::get('Status_pengambilan');
+            $gaji->tunjangan_pegawai_id = Input::get('tunjangan_pegawai_id');
+            $gaji->Petugas_penerima = Auth::user()->name;
+            $gaji->save();
+        }
+        return redirect('Penggajians');
+    }
   
 
 

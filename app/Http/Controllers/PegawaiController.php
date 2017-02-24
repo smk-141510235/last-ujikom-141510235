@@ -27,7 +27,10 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+ public function __construct()
+    {
+        $this->middleware('HRD');
+    }
     public function index()
     {
         $pegawai = Pegawai::all();
